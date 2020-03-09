@@ -129,46 +129,6 @@ public class BtState implements State {
         return result;
     }
 
-    public int min(int[] array){
-        int minValue = array[0];
-        for(int i = 0; i < array.length; i++){
-            if(array[i] < minValue){
-                minValue = array[i];
-            }
-        }
-        return minValue;
-    }
-
-    public int[] find2Min(int[] array){
-        int firstMin = Integer.MAX_VALUE;
-        int secondMin = Integer.MAX_VALUE;
-
-        for(int i = 0; i < array.length; i++){
-            if(array[i] < firstMin && array[i] != 0){
-                secondMin = firstMin;
-                firstMin = array[i];
-            } else if(array[i] < secondMin && array[i] != firstMin && array[i] != 0){
-                secondMin = array[i];
-            }
-        }
-        return new int[]{firstMin, secondMin};
-    }
-
-    public int[] find2Max(int[] array){
-        int firstMax = array[0];
-        int secondMax = array[0];
-
-        for(int i = 0; i < array.length; i++){
-            if(array[i] > firstMax){
-                secondMax = firstMax;
-                firstMax = array[i];
-            } else if(array[i] > secondMax){
-                secondMax = array[i];
-            }
-        }
-        return new int[]{firstMax, secondMax};
-    }
-
     @SuppressWarnings("unchecked")
     public BtState applyAction(BtAction action)
     {
