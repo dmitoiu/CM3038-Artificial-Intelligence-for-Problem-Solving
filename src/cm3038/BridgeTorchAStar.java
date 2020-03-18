@@ -10,6 +10,7 @@ import cm3038.search.Node;
 import cm3038.search.State;
 import cm3038.search.informed.BestFirstSearchProblem;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class BridgeTorchAStar extends BestFirstSearchProblem {
@@ -35,18 +36,11 @@ public class BridgeTorchAStar extends BestFirstSearchProblem {
     public double heuristic(State state) {
         double cost = 0.0D;
         BtState btState = (BtState) state;
-        BtState btGoal = (BtState) this.goalState;
-
-        for(int i = 0; i < btState.westPersonList.size(); i++){
-            if(!btGoal.westPersonList.contains(btState.westPersonList.get(i))){
-                cost+= btState.westPersonList.get(i).getCrossingTime();
-            }
+        if(btState.getTorchLocation() == TorchLocation.WEST){
+            cost = Collections.max(btState.westPersonList).getCrossingTime();
+        } else {
+            cost = Collections.min(btState.eastPersonList).getCrossingTime();
         }
-        for(int i = 0; i < btState.eastPersonList.size(); i++){
-            if(!btGoal.eastPersonList.contains(btState.eastPersonList.get(i))){
-                cost+= btState.eastPersonList.get(i).getCrossingTime();
-            }
-        }
-        return 0;
+        return this.isGoal(btState) ? 0 : cost;
     }
 }
