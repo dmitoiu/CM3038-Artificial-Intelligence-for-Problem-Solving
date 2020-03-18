@@ -1,8 +1,10 @@
-package cm3038;// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Darie-Dragos Mitoiu
-// The Bridge and cm3038.Torch Problem (cm3038.BtAction.java) v1.0.0 30/01/2020
+// The Bridge and Torch Problem (cm3038.BtAction.java) v1.0.0 30/01/2020
 // A program designed to solve the bridge and torch problem using A* algorithm
 // ---------------------------------------------------------------------------
+
+package cm3038;
 
 import cm3038.search.Action;
 
@@ -39,21 +41,11 @@ public class BtAction extends Action {
         this.cost = cost;
     }
 
-    public static Person maxPerson(ArrayList<Person> personsList){
-        Person person = personsList.get(0);
-        for(int i = 0; i < personsList.size(); i++){
-            if(personsList.get(i).getCrossingTime() > person.getCrossingTime()){
-                person = personsList.get(i);
-            }
-        }
-        return person;
-    }
-
     @Override
     public String toString() {
         String result = "";
-        this.cost = Collections.max(personList).getCrossingTime();
         result+= "Move Torch ";
+        this.cost = Collections.max(personList).getCrossingTime();
         for(int i = 0; i < personList.size(); i++){
             Person person = personList.get(i);
             result+= person.getName() + "(" + person.getCrossingTime() + ")" + " ";
@@ -61,7 +53,7 @@ public class BtAction extends Action {
         if(this.torchLocation == TorchLocation.EAST){
             result+= "From WEST to EAST " + "(cost:" + String.valueOf(this.cost) + ")";
         } else{
-            result+= "From EAST to WEST" + "(cost:" + String.valueOf(this.cost) + ")";
+            result+= "From EAST to WEST " + "(cost:" + String.valueOf(this.cost) + ")";
         }
         return result;
     }

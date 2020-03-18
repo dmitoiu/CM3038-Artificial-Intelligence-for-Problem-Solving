@@ -23,12 +23,17 @@ public class Main {
         personList.add(new Person("Claire", 5));
         personList.add(new Person("Doris", 8));
 
+        emptyList.add(new Person("Edward", 9));
+        emptyList.add(new Person("Fiona", 10));
+
+
         Collections.sort(personList);
 
         BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST);
         BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST);
 
-        SearchProblem problem = new BridgeTorchAStar(initialState, goalState);
+        BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
+        System.out.println(problem.heuristic(initialState));
 
         System.out.println("Searching...");		//print some message
         Path path=problem.search();				//perform search, get result

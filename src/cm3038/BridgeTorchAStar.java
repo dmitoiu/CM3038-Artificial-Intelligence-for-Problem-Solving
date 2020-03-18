@@ -33,11 +33,20 @@ public class BridgeTorchAStar extends BestFirstSearchProblem {
     } //end method
 
     public double heuristic(State state) {
+        double cost = 0.0D;
         BtState btState = (BtState) state;
-        if(btState.getTorchLocation() == TorchLocation.WEST){
-            return btState.isGoal() ? 0 : Collections.max(btState.westPersonList).getCrossingTime();
-        } else {
-            return btState.isGoal() ? 0 : Collections.min(btState.eastPersonList).getCrossingTime();
+        BtState btGoal = (BtState) this.goalState;
+
+        for(int i = 0; i < btState.westPersonList.size(); i++){
+            if(!btGoal.westPersonList.contains(btState.westPersonList.get(i))){
+                cost+= btState.westPersonList.get(i).getCrossingTime();
+            }
         }
+        for(int i = 0; i < btState.eastPersonList.size(); i++){
+            if(!btGoal.eastPersonList.contains(btState.eastPersonList.get(i))){
+                cost+= btState.eastPersonList.get(i).getCrossingTime();
+            }
+        }
+        return this.isGoal(btState) ? 0 : cost;
     }
 }

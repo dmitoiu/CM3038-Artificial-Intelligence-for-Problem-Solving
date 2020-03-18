@@ -117,15 +117,25 @@ public class BtState implements State {
                 Person person2 = source.get(j);
                 if(!leaving2.contains(person2)){
                     leaving2.add(person2);
-                    BtAction btAction = new BtAction(leaving2, this.oppositeLocation(this.getTorchLocation()));
-                    BtState nextState = this.applyAction(btAction);
-                    btAction.setCost(Collections.max(leaving2).getCrossingTime());
-                    result.add(new ActionStatePair(btAction, nextState));
+                    BtAction btAction2 = new BtAction(leaving2, this.oppositeLocation(this.getTorchLocation()));
+                    BtState nextState2 = this.applyAction(btAction2);
+                    btAction2.setCost(Collections.max(leaving2).getCrossingTime());
+                    result.add(new ActionStatePair(btAction2, nextState2));
+                }
+
+                for(int k = 0; k < source.size(); k++){
+                    ArrayList<Person> leaving3 = (ArrayList<Person>) leaving2.clone();
+                    Person person3 = source.get(k);
+                    if(!leaving3.contains(person3)){
+                        leaving3.add(person3);
+                        BtAction btAction3 = new BtAction(leaving3, this.oppositeLocation(this.getTorchLocation()));
+                        BtState nextState3 = this.applyAction(btAction3);
+                        btAction3.setCost(Collections.max(leaving3).getCrossingTime());
+                        result.add(new ActionStatePair(btAction3, nextState3));
+                    }
                 }
             }
-
         }
-
         return result;
     }
 
