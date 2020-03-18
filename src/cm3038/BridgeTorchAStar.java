@@ -47,6 +47,6 @@ public class BridgeTorchAStar extends BestFirstSearchProblem {
                 cost+= btState.eastPersonList.get(i).getCrossingTime();
             }
         }
-        return this.isGoal(btState) ? 0 : cost;
+        return 0;
     }
 }

@@ -52,7 +52,15 @@ public class BtState implements State {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getWestPersonList(), getEastPersonList(), getTorchLocation());
+        int hash = 0;
+        boolean torchWest = true;
+        if(this.getTorchLocation() == TorchLocation.WEST){
+            torchWest = true;
+        } else {
+            torchWest = false;
+        }
+        hash = hash + (torchWest ? 1 : 0);
+        return hash;
     }
 
     public String toString(){
@@ -84,6 +92,10 @@ public class BtState implements State {
         BtState btState = (BtState) state;
         Collections.sort(westPersonList);
         Collections.sort(eastPersonList);
+
+        Collections.sort(btState.westPersonList);
+        Collections.sort(btState.eastPersonList);
+
         boolean status = (westPersonList.equals(btState.westPersonList) &&
                           eastPersonList.equals(btState.eastPersonList) &&
                           this.getTorchLocation() == btState.getTorchLocation());
