@@ -26,11 +26,11 @@ public class Main {
         emptyList.add(new Person("Edward", 9));
         emptyList.add(new Person("Fiona", 10));
 
-
         Collections.sort(personList);
 
-        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST);
-        BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST);
+        Bridge bridge = new Bridge(3);
+        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
+        BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST, bridge);
 
         BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
         System.out.println(problem.heuristic(initialState));

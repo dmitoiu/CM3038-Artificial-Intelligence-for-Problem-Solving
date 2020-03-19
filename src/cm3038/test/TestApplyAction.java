@@ -16,7 +16,9 @@ public class TestApplyAction {
         personList.add(new Person("Claire", 5));
         personList.add(new Person("Doris", 8));
 
-        BtState beforeState = new BtState(personList, emptyList, TorchLocation.WEST);
+        Bridge bridge = new Bridge(2);
+        BtState beforeState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
+
         ArrayList<Person> leaving = new ArrayList<>();
         for(int i = 0; i < beforeState.westPersonList.size(); i++){
             Person person = beforeState.westPersonList.get(i);

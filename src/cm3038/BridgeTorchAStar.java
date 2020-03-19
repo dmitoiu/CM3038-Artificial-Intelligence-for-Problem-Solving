@@ -15,9 +15,6 @@ import java.util.Collections;
 
 public class BridgeTorchAStar extends BestFirstSearchProblem {
 
-    public static final int BRIDGE_SIZE = 2;
-    public static int TORCH_DURATION = 15;
-
     public BridgeTorchAStar(State start, State goal) {
         super(start, goal);
     }

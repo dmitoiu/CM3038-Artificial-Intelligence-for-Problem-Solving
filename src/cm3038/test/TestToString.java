@@ -1,5 +1,6 @@
 package cm3038.test;
 
+import cm3038.Bridge;
 import cm3038.BtState;
 import cm3038.Person;
 import cm3038.TorchLocation;
@@ -17,7 +18,8 @@ public class TestToString {
         personList.add(new Person("Claire", 5));
         personList.add(new Person("Doris", 8));
 
-        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST);
+        Bridge bridge = new Bridge(2);
+        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
         System.out.println(initialState.toString());
     }
 }

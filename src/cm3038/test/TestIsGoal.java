@@ -16,8 +16,9 @@ public class TestIsGoal {
         personList.add(new Person("Claire", 5));
         personList.add(new Person("Doris", 8));
 
-        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST);
-        BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST);
+        Bridge bridge = new Bridge(2);
+        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
+        BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST, bridge);
 
         SearchProblem problem = new BridgeTorchAStar(initialState, goalState);
         System.out.println(problem.isGoal(goalState));

@@ -18,12 +18,13 @@ public class BtState implements State {
 
     public ArrayList<Person> westPersonList, eastPersonList;
     public TorchLocation torchLocation;
-    public int elapsedTime;
+    Bridge bridge;
 
-    public BtState(ArrayList<Person> westPersonList, ArrayList<Person> eastPersonList, TorchLocation torchLocation){
+    public BtState(ArrayList<Person> westPersonList, ArrayList<Person> eastPersonList, TorchLocation torchLocation, Bridge bridge){
         this.westPersonList = westPersonList;
         this.eastPersonList = eastPersonList;
         this.torchLocation = torchLocation;
+        this.bridge = bridge;
     }
 
     public ArrayList<Person> getWestPersonList() {
@@ -135,15 +136,22 @@ public class BtState implements State {
                     result.add(new ActionStatePair(btAction2, nextState2));
                 }
 
-                for(int k = 0; k < source.size(); k++){
-                    ArrayList<Person> leaving3 = (ArrayList<Person>) leaving2.clone();
-                    Person person3 = source.get(k);
-                    if(!leaving3.contains(person3)){
-                        leaving3.add(person3);
-                        BtAction btAction3 = new BtAction(leaving3, this.oppositeLocation(this.getTorchLocation()));
-                        BtState nextState3 = this.applyAction(btAction3);
-                        btAction3.setCost(Collections.max(leaving3).getCrossingTime());
-                        result.add(new ActionStatePair(btAction3, nextState3));
+                if(this.bridge.getCapacity() > 2){
+                    int bridgeCapacity = this.bridge.getCapacity() - 2;
+                    ArrayList<Person> leavingN = (ArrayList<Person>) leaving2.clone();
+
+                    while(bridgeCapacity != 0){
+                        for(int k = 0; k < source.size(); k++){
+                            Person personN = source.get(k);
+                            if(!leavingN.contains(personN)){
+                                leavingN.add(personN);
+                                BtAction btActionN = new BtAction(leavingN, this.oppositeLocation(this.getTorchLocation()));
+                                BtState nextStateN = this.applyAction(btActionN);
+                                btActionN.setCost(Collections.max(leavingN).getCrossingTime());
+                                result.add(new ActionStatePair(btActionN, nextStateN));
+                            }
+                        }
+                        bridgeCapacity--;
                     }
                 }
             }
@@ -170,13 +178,9 @@ public class BtState implements State {
         source.removeAll(action.personList);
         destination.addAll(action.personList);
 
-        BtState nextState = new BtState(west, east, this.oppositeLocation(this.getTorchLocation()));
+        BtState nextState = new BtState(west, east, this.oppositeLocation(this.getTorchLocation()), this.bridge);
         return nextState;
     } //end method
-
-    public boolean isGoal(){
-        return westPersonList.isEmpty();
-    }
 
     private TorchLocation oppositeLocation(TorchLocation current)
     {

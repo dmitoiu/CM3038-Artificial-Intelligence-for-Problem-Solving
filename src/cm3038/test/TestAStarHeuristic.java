@@ -1,9 +1,6 @@
 package cm3038.test;
 
-import cm3038.BridgeTorchAStar;
-import cm3038.BtState;
-import cm3038.Person;
-import cm3038.TorchLocation;
+import cm3038.*;
 import cm3038.search.Path;
 import javafx.scene.control.RadioMenuItem;
 
@@ -28,8 +25,9 @@ public class TestAStarHeuristic {
 
         Collections.sort(initPersonList);
 
-        BtState initialState = new BtState(initPersonList, initEmptyList, TorchLocation.WEST);
-        BtState goalState = new BtState(initEmptyList, initPersonList, TorchLocation.EAST);
+        Bridge bridge = new Bridge(2);
+        BtState initialState = new BtState(initPersonList, initEmptyList, TorchLocation.WEST, bridge);
+        BtState goalState = new BtState(initEmptyList, initPersonList, TorchLocation.EAST, bridge);
 
         BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
         System.out.println(problem.heuristic(initialState));
