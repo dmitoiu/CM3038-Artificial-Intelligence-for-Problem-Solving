@@ -23,8 +23,8 @@ public class Main {
         personList.add(new Person("Claire", 5));
         personList.add(new Person("Doris", 8));
 
-        emptyList.add(new Person("Edward", 9));
-        emptyList.add(new Person("Fiona", 10));
+        personList.add(new Person("Edward", 9));
+        personList.add(new Person("Fiona", 10));
 
         Collections.sort(personList);
 
