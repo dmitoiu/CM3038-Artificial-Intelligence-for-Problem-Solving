@@ -1,17 +1,14 @@
-// ---------------------------------------------------------------------------
-// Darie-Dragos Mitoiu
-// The Bridge and cm3038.Torch Problem v1.0.0 30/01/2020
-// A program designed to solve the bridge and torch problem using A* algorithm
-// ---------------------------------------------------------------------------
+package cm3038.test;
 
-package cm3038;
-
-import cm3038.search.*;
+import cm3038.*;
+import cm3038.search.Path;
+import javafx.scene.control.RadioMenuItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
-public class Main {
+public class TestAStarHeuristic {
 
     public static void main(String[] args){
         ArrayList<Person> westPersonList = new ArrayList<Person>();
@@ -34,16 +31,19 @@ public class Main {
 
         BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
 
-        System.out.println("Init: " + initialState.toString());
-        System.out.println("Goal: " + goalState.toString());
-        System.out.println("");
         Path path=problem.search();
         if (path==null)
             System.out.println("No solution");
         else {
             path.print();
-            System.out.println("Nodes visited: "+problem.nodeVisited);
+            System.out.println("Nodes Visited: "+problem.nodeVisited);
             System.out.println("Solution Cost: "+path.cost+"\n");
+
+            System.out.println(problem.heuristic(initialState));
+            if(problem.heuristic(initialState) > path.cost){
+                System.out.println("Overestimate!");
+            }
+
         }
     }
 }

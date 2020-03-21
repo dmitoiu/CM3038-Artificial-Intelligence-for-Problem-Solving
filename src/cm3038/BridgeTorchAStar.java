@@ -10,12 +10,10 @@ import cm3038.search.Node;
 import cm3038.search.State;
 import cm3038.search.informed.BestFirstSearchProblem;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class BridgeTorchAStar extends BestFirstSearchProblem {
-
-    public static final int BRIDGE_SIZE = 2;
-    public static int TORCH_DURATION = 15;
 
     public BridgeTorchAStar(State start, State goal) {
         super(start, goal);
@@ -33,11 +31,20 @@ public class BridgeTorchAStar extends BestFirstSearchProblem {
     } //end method
 
     public double heuristic(State state) {
+        double cost = 0.0D;
         BtState btState = (BtState) state;
-        if(btState.getTorchLocation() == TorchLocation.WEST){
-            return btState.isGoal() ? 0 : Collections.max(btState.westPersonList).getCrossingTime();
-        } else {
-            return btState.isGoal() ? 0 : Collections.min(btState.eastPersonList).getCrossingTime();
+        BtState btGoal = (BtState) this.goalState;
+
+        for(int i = 0; i < btState.westPersonList.size(); i++){
+            if(!btGoal.westPersonList.contains(btState.westPersonList.get(i))){
+                cost++;
+            }
         }
+        for(int i = 0; i < btState.eastPersonList.size(); i++){
+            if(!btGoal.eastPersonList.contains(btState.eastPersonList.get(i))){
+                cost++;
+            }
+        }
+        return this.isGoal(btState) ? 0 : cost;
     }
 }

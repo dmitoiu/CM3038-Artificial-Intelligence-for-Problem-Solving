@@ -9,21 +9,19 @@ package cm3038;
 import cm3038.search.ActionStatePair;
 import cm3038.search.State;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class BtState implements State {
 
     public ArrayList<Person> westPersonList, eastPersonList;
     public TorchLocation torchLocation;
-    public int elapsedTime;
+    Bridge bridge;
 
-    public BtState(ArrayList<Person> westPersonList, ArrayList<Person> eastPersonList, TorchLocation torchLocation){
+    public BtState(ArrayList<Person> westPersonList, ArrayList<Person> eastPersonList, TorchLocation torchLocation, Bridge bridge){
         this.westPersonList = westPersonList;
         this.eastPersonList = eastPersonList;
         this.torchLocation = torchLocation;
+        this.bridge = bridge;
     }
 
     public ArrayList<Person> getWestPersonList() {
@@ -52,7 +50,15 @@ public class BtState implements State {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getWestPersonList(), getEastPersonList(), getTorchLocation());
+        int hash = 0;
+        boolean torchWest = true;
+        if(this.getTorchLocation() == TorchLocation.WEST){
+            torchWest = true;
+        } else {
+            torchWest = false;
+        }
+        hash = hash + (torchWest ? 1 : 0);
+        return hash;
     }
 
     public String toString(){
@@ -64,7 +70,7 @@ public class BtState implements State {
             Person person = westPersonList.get(i);
             result+= person.getName() + "(" + person.getCrossingTime() + ")" + " ";
         }
-        result+= " |==================" + "(2)" + "==================| ";
+        result+= " |=================="+"("+String.valueOf(this.bridge.getCapacity())+")"+"==================| ";
         if(this.getTorchLocation() == TorchLocation.EAST){
             result+= "Torch ";
         }
@@ -72,7 +78,6 @@ public class BtState implements State {
             Person person = eastPersonList.get(i);
             result+= person.getName() + "(" + person.getCrossingTime() + ")" + " ";
         }
-        result+= "\n";
         return result;
     }
 
@@ -82,8 +87,13 @@ public class BtState implements State {
             return false;
         }
         BtState btState = (BtState) state;
+
         Collections.sort(westPersonList);
         Collections.sort(eastPersonList);
+
+        Collections.sort(btState.westPersonList);
+        Collections.sort(btState.eastPersonList);
+
         boolean status = (westPersonList.equals(btState.westPersonList) &&
                           eastPersonList.equals(btState.eastPersonList) &&
                           this.getTorchLocation() == btState.getTorchLocation());
@@ -101,32 +111,46 @@ public class BtState implements State {
             source = eastPersonList;
         }
 
-        for(int i = 0; i < source.size(); i++){
-            ArrayList<Person> leaving = new ArrayList<>();
-            Person person = source.get(i);
-            if(!leaving.contains(person)){
-                leaving.add(person);
-                BtAction btAction = new BtAction(leaving, this.oppositeLocation(this.getTorchLocation()));
-                BtState nextState = this.applyAction(btAction);
-                btAction.setCost(Collections.max(leaving).getCrossingTime());
-                result.add(new ActionStatePair(btAction, nextState));
-            }
+        int r = this.bridge.getCapacity();
+        int n = source.size();
 
-            for(int j = 0; j < source.size(); j++){
-                ArrayList<Person> leaving2 = (ArrayList<Person>) leaving.clone();
-                Person person2 = source.get(j);
-                if(!leaving2.contains(person2)){
-                    leaving2.add(person2);
-                    BtAction btAction = new BtAction(leaving2, this.oppositeLocation(this.getTorchLocation()));
-                    BtState nextState = this.applyAction(btAction);
-                    btAction.setCost(Collections.max(leaving2).getCrossingTime());
-                    result.add(new ActionStatePair(btAction, nextState));
+        while(r != 0){
+            ArrayList<Person[]> personCombinations = new ArrayList<>();
+            getCombinations(source, n, r, personCombinations);
+            for(int combination = 0; combination < personCombinations.size(); combination++){
+                ArrayList<Person> leavingAction = new ArrayList<>();
+                for(int person = 0; person < personCombinations.get(combination).length; person++){
+                    Person combinationPerson = personCombinations.get(combination)[person];
+                    leavingAction.add(combinationPerson);
                 }
+                BtAction action = new BtAction(leavingAction, this.oppositeLocation(this.getTorchLocation()));
+                BtState nextState = this.applyAction(action);
+                action.setCost(Collections.max(leavingAction).getCrossingTime());
+                result.add(new ActionStatePair(action, nextState));
             }
-
+            r--;
         }
 
         return result;
+    }
+
+    public static void combinationsUtil(ArrayList<Person> personList, Person[] combination,
+                                        int start, int end, int index, int r,
+                                        ArrayList<Person[]> leavingList){
+        if(index == r){
+            Person[] data = combination.clone();
+            leavingList.add(data);
+            return;
+        }
+        for(int j = start; j <= end && end - j + 1 >= r - index; j++){
+            combination[index] = personList.get(j);
+            combinationsUtil(personList, combination, j+1, end, index+1, r, leavingList);
+        }
+    }
+
+    public static void getCombinations(ArrayList<Person> personList, int n, int r, ArrayList<Person[]> leavingList){
+        Person[] combination = new Person[r];
+        combinationsUtil(personList, combination, 0, n-1, 0, r, leavingList);
     }
 
     @SuppressWarnings("unchecked")
@@ -148,13 +172,9 @@ public class BtState implements State {
         source.removeAll(action.personList);
         destination.addAll(action.personList);
 
-        BtState nextState = new BtState(west, east, this.oppositeLocation(this.getTorchLocation()));
+        BtState nextState = new BtState(west, east, this.oppositeLocation(this.getTorchLocation()), this.bridge);
         return nextState;
     } //end method
-
-    public boolean isGoal(){
-        return westPersonList.isEmpty();
-    }
 
     private TorchLocation oppositeLocation(TorchLocation current)
     {
