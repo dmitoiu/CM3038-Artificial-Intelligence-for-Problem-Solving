@@ -87,6 +87,7 @@ public class BtState implements State {
             return false;
         }
         BtState btState = (BtState) state;
+
         Collections.sort(westPersonList);
         Collections.sort(eastPersonList);
 

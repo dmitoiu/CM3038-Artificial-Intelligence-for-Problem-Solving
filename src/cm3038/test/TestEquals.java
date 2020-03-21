@@ -10,17 +10,17 @@ import java.util.ArrayList;
 public class TestEquals {
 
     public static void main(String[] args){
-        ArrayList<Person> personList = new ArrayList<Person>();
-        ArrayList<Person> emptyList = new ArrayList<Person>();
+        ArrayList<Person> westPersonList = new ArrayList<Person>();
+        ArrayList<Person> eastPersonList = new ArrayList<Person>();
 
-        personList.add(new Person("Adam", 1));
-        personList.add(new Person("Ben", 2));
-        personList.add(new Person("Claire", 5));
-        personList.add(new Person("Doris", 8));
+        westPersonList.add(new Person("Adam", 1));
+        westPersonList.add(new Person("Ben", 2));
+        westPersonList.add(new Person("Claire", 5));
+        westPersonList.add(new Person("Doris", 8));
 
         Bridge bridge = new Bridge(2);
-        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
-        BtState goalState = new BtState(emptyList, personList, TorchLocation.WEST, bridge);
+        BtState initialState = new BtState(westPersonList, eastPersonList, TorchLocation.WEST, bridge);
+        BtState goalState = new BtState(eastPersonList, westPersonList, TorchLocation.EAST, bridge);
         System.out.println(initialState.equals(goalState));
     }
 }

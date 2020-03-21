@@ -14,23 +14,23 @@ import java.util.Collections;
 public class Main {
 
     public static void main(String[] args){
+        ArrayList<Person> westPersonList = new ArrayList<Person>();
+        ArrayList<Person> eastPersonList = new ArrayList<Person>();
 
-        ArrayList<Person> personList = new ArrayList<Person>();
-        ArrayList<Person> emptyList = new ArrayList<Person>();
+        westPersonList.add(new Person("Adam", 1));
+        westPersonList.add(new Person("Ben", 2));
+        westPersonList.add(new Person("Claire", 5));
+        westPersonList.add(new Person("Doris", 8));
 
-        personList.add(new Person("Adam", 1));
-        personList.add(new Person("Ben", 2));
-        personList.add(new Person("Claire", 5));
-        personList.add(new Person("Doris", 8));
+        eastPersonList.add(new Person("Edward", 9));
+        eastPersonList.add(new Person("Fiona", 10));
 
-        emptyList.add(new Person("Edward", 9));
-        emptyList.add(new Person("Fiona", 10));
-
-        Collections.sort(personList);
+        Collections.sort(westPersonList);
+        Collections.sort(eastPersonList);
 
         Bridge bridge = new Bridge(3);
-        BtState initialState = new BtState(personList, emptyList, TorchLocation.WEST, bridge);
-        BtState goalState = new BtState(emptyList, personList, TorchLocation.EAST, bridge);
+        BtState initialState = new BtState(westPersonList, eastPersonList, TorchLocation.WEST, bridge);
+        BtState goalState = new BtState(eastPersonList, westPersonList, TorchLocation.EAST, bridge);
 
         BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
 
