@@ -70,7 +70,7 @@ public class BtState implements State {
             Person person = westPersonList.get(i);
             result+= person.getName() + "(" + person.getCrossingTime() + ")" + " ";
         }
-        result+= " |==================" + "(2)" + "==================| ";
+        result+= " |=================="+"("+String.valueOf(this.bridge.getCapacity())+")"+"==================| ";
         if(this.getTorchLocation() == TorchLocation.EAST){
             result+= "Torch ";
         }
@@ -78,7 +78,6 @@ public class BtState implements State {
             Person person = eastPersonList.get(i);
             result+= person.getName() + "(" + person.getCrossingTime() + ")" + " ";
         }
-        result+= "\n";
         return result;
     }
 
@@ -123,9 +122,6 @@ public class BtState implements State {
                     Person combinationPerson = personCombinations.get(combination)[person];
                     leavingAction.add(combinationPerson);
                 }
-                System.out.println("Leaving:");
-                System.out.println(leavingAction);
-                System.out.println("");
                 BtAction action = new BtAction(leavingAction, this.oppositeLocation(this.getTorchLocation()));
                 BtState nextState = this.applyAction(action);
                 action.setCost(Collections.max(leavingAction).getCrossingTime());
@@ -138,15 +134,11 @@ public class BtState implements State {
     }
 
     public static void combinationsUtil(ArrayList<Person> personList, Person[] combination,
-                                        int start, int end, int index,
-                                        int r, ArrayList<Person[]> leavingList){
+                                        int start, int end, int index, int r,
+                                        ArrayList<Person[]> leavingList){
         if(index == r){
             Person[] data = combination.clone();
             leavingList.add(data);
-            for(int i = 0; i < r; i++){
-                System.out.println(combination[i]);
-            }
-            System.out.println("");
             return;
         }
         for(int j = start; j <= end && end - j + 1 >= r - index; j++){
