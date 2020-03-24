@@ -12,11 +12,11 @@ public class TestPersonEquals {
 
     public static void main(String[] args){
         // Create person objects
-        Person person1 = new Person("Adam", 1);
-        Person person2 = new Person("Ben", 2);
+        Person adam = new Person("Adam", 1);
+        Person ben = new Person("Ben", 2);
 
-        System.out.println(person1.getName() + " equals " + person2.getName() + " -> " + person1.equals(person2));
-        System.out.println(person1.getName() + " hashcode " + person1.hashCode());
-        System.out.println(person2.getName() + " hashcode " + person2.hashCode());
+        System.out.println(adam.getName() + " equals " + ben.getName() + " -> " + adam.equals(ben));
+        System.out.println(adam.getName() + " hashcode " + adam.hashCode());
+        System.out.println(ben.getName() + " hashcode " + ben.hashCode());
     }
 }

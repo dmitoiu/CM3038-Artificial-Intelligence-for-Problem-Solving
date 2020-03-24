@@ -93,8 +93,16 @@ public class BtState implements State {
         boolean torchWest = true;
         if(this.getTorchLocation() == TorchLocation.WEST){
             torchWest = true;
+            // Loop over west person ArrayList and add hash of each person
+            for(Person person : this.getWestPersonList()){
+                hash = hash + (int) person.hashCode();
+            }
         } else {
             torchWest = false;
+            // Loop over east person ArrayList and add hash of each person
+            for(Person person : this.getEastPersonList()){
+                hash = hash + (int) person.hashCode();
+            }
         }
         // If torch location is in west hash is 1 if not than 0
         hash = hash + (torchWest ? 1 : 0);
