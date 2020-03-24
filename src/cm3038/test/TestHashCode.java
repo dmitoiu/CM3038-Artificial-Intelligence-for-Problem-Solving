@@ -1,22 +1,22 @@
 // ---------------------------------------------------------------------------
 // Darie-Dragos Mitoiu
-// The Bridge and Torch Problem (TestAStarHeuristic.java) v1.0.0 30/01/2020
+// The Bridge and Torch Problem (TestHashCode.java) v1.0.0 30/01/2020
 // A program designed to solve the bridge and torch problem using A* algorithm
 // ---------------------------------------------------------------------------
 
 package cm3038.test;
 
-import cm3038.*;
-import cm3038.search.Path;
-import java.util.ArrayList;
-import java.util.Collections;
+import cm3038.Bridge;
+import cm3038.BtState;
+import cm3038.Person;
+import cm3038.TorchLocation;
 
-public class TestAStarHeuristic {
+import java.util.ArrayList;
+
+public class TestHashCode {
 
     public static void main(String[] args){
-        // Create west ArrayList of person objects
         ArrayList<Person> westPersonList = new ArrayList<Person>();
-        // Create east ArrayList of person objects
         ArrayList<Person> eastPersonList = new ArrayList<Person>();
 
         // Create person objects
@@ -37,40 +37,18 @@ public class TestAStarHeuristic {
         eastPersonList.add(edward);
         eastPersonList.add(fiona);
 
-        // Sort west and east ArrayList of person objects
-        Collections.sort(westPersonList);
-        Collections.sort(eastPersonList);
-
         // Create bridge object
-        Bridge bridge = new Bridge(3);
+        Bridge bridge = new Bridge(2);
 
-        // Create initial state object
+        // Create Initial state object
         BtState initialState = new BtState(westPersonList, eastPersonList, TorchLocation.WEST, bridge);
-
+        // Create some state object
+        BtState someState = new BtState(westPersonList, eastPersonList, TorchLocation.WEST, bridge);
         // Create goal state object
         BtState goalState = new BtState(eastPersonList, westPersonList, TorchLocation.EAST, bridge);
 
-        // Create problem object
-        BridgeTorchAStar problem = new BridgeTorchAStar(initialState, goalState);
-
-        // Start search
-        Path path=problem.search();
-        if (path==null)
-            System.out.println("No solution");
-        else {
-            path.print();
-            System.out.println("Nodes Visited: "+problem.nodeVisited);
-            System.out.println("Solution Cost: "+path.cost+"\n");
-
-            System.out.println("Cost estimation to reach the goal " +
-                               "from initial state: " +
-                               problem.heuristic(initialState));
-
-            if(problem.heuristic(initialState) > path.cost){
-                // If the estimate is higher than the actual cost to the goal, the heuristic overestimates...
-                System.out.println("Overestimate!");
-            }
-
-        }
+        System.out.println(initialState.toString() + " hashcode -> " + initialState.hashCode());
+        System.out.println(someState.toString() + " hashcode -> " + someState.hashCode());
+        System.out.println(goalState.toString() + " hashcode -> " + goalState.hashCode());
     }
 }
