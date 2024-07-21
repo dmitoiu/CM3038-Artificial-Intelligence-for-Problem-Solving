@@ -9,7 +9,7 @@ It supports Static and Dynamic User Input.
 ## Graded Unit Project Compile-time Dependencies
 
 * [Java](http://www.java.com) (1.8 required;)
-* [cm3038](lib/cm3038-coursework/cm3038.jar) (required)git
+* [CM3038](lib/cm3038-coursework/cm3038.jar) (required)
 * [Git](https://git-scm.com) (2.40.0+ optional)
 
 ## Installation
