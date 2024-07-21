@@ -16,7 +16,7 @@ It supports Static and Dynamic User Input.
 
 The [CM3038: Artificial Intelligence for Problem-Solving installation guides] includes instructions for installing the project as part of a local application.
 
-## Running Graded Unit
+## Running CM3038: Artificial Intelligence for Problem-Solving Project
 
 ### Run-time options:
 
