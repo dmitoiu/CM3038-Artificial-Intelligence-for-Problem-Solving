@@ -18,8 +18,6 @@ The [CM3038: Artificial Intelligence for Problem-Solving installation guides] in
 
 ## Running CM3038: Artificial Intelligence for Problem-Solving Project
 
-![](docs/d03969f38ddd6bf61a0361ee5f8d834d.gif)
-
 ### Run-time options:
 
 * `java --classpath "<path/to/lib/cm3038.jar>" <path/to/cm3038.Main>` - Path to entry point file. If unspecified, the current working directory is used.
