@@ -9,7 +9,7 @@ It supports Static and Dynamic User Input.
 ## Graded Unit Project Compile-time Dependencies
 
 * [Java](http://www.java.com) (1.8 required;)
-* [cm3038](lib/cm3038-coursework/cm3038.jar) (required)
+* [cm3038](lib/cm3038-coursework/cm3038.jar) (required)git
 * [Git](https://git-scm.com) (2.40.0+ optional)
 
 ## Installation
@@ -17,6 +17,8 @@ It supports Static and Dynamic User Input.
 The [CM3038: Artificial Intelligence for Problem-Solving installation guides] includes instructions for installing the project as part of a local application.
 
 ## Running CM3038: Artificial Intelligence for Problem-Solving Project
+
+![](docs/d03969f38ddd6bf61a0361ee5f8d834d.gif)
 
 ### Run-time options:
 
