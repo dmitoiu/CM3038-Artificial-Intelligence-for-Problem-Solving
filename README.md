@@ -8,7 +8,7 @@ It supports Static and Dynamic User Input.
 
 ## CM3038 Artificial Intelligence for Problem Solving Report
 
-[Coursework Report](report/CM3038 Coursework 2.pdf)
+[Coursework Report](https://github.com/dmitoiu/CM3038-Artificial-Intelligence-for-Problem-Solving/blob/master/report/CM3038-Coursework-2.pdf.pdf)
 
 ## CM3038: Artificial Intelligence Project Compile-time Dependencies
 
