@@ -6,7 +6,7 @@ The **CM3038: Artificial Intelligence for Problem-Solving Project** is a console
 and Torch Problem** using the **A*** Algorithm written in Java.
 It supports Static and Dynamic User Input.
 
-## Graded Unit Project Compile-time Dependencies
+## CM3038: Artificial Intelligence Project Compile-time Dependencies
 
 * [Java](http://www.java.com) (1.8 required)
 * [CM3038](lib/cm3038-coursework/cm3038.jar) (required)
