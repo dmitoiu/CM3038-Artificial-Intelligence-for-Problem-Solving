@@ -1,4 +1,4 @@
-# CM3038: Artificial Intelligence for Problem-Solving Project
+# CM3038: Artificial Intelligence for Problem-Solving
 
 ![](docs/fa3246798482f022d533d209a088fc09.png)
 
