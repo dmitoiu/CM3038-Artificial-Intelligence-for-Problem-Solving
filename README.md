@@ -6,6 +6,20 @@ The **CM3038: Artificial Intelligence for Problem-Solving Project** is a console
 and Torch Problem** using the **A*** Algorithm written in Java.
 It supports Static and Dynamic User Input.
 
+## Problem Definition
+
+**The bridge and torch problem (also known as The Midnight Train and Dangerous crossing) is a logic puzzle that deals 
+with four people, a bridge and a torch. It is in the category of river crossing puzzles, 
+where a number of objects must move across a river, with some constraints.**
+
+## Story
+
+**Four people come to a river in the night. There is a narrow bridge, and it can only hold two people at a time. 
+They have one torch and, because it's night, the torch has to be used when crossing the bridge. 
+Person A can cross the bridge in 1 minute, B in 2 minutes, C in 5 minutes, and D in 8 minutes. 
+When two people cross the bridge together, they must move at the slower person's pace. 
+The question is, can they all get across the bridge if the torch lasts only 15 minutes?**
+
 ## CM3038 Artificial Intelligence for Problem Solving Report
 
 [Coursework Report](https://github.com/dmitoiu/CM3038-Artificial-Intelligence-for-Problem-Solving/blob/master/report/CM3038-Coursework-2.pdf)
